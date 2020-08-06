@@ -6,6 +6,7 @@ import net.crystalos.framedemo.dao.inter.IUserDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class UserDaoImpl extends BaseDAOImpl<UserEntity> implements IUserDao {
 
     private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 
+    @Transactional
     @Override
     public List<UserEntity> getAll() {
         //编写Sql语句
@@ -37,6 +39,7 @@ public class UserDaoImpl extends BaseDAOImpl<UserEntity> implements IUserDao {
         return userList;
     }
 
+    @Transactional
     @Override
     public List<UserEntity> getAll(int pageIndex) {
         //编写Sql语句，：pageIndex为需要被替换的参数
@@ -54,6 +57,7 @@ public class UserDaoImpl extends BaseDAOImpl<UserEntity> implements IUserDao {
         return userList;
     }
 
+    @Transactional
     @Override
     public List<UserEntity> getAll(int pageIndex, int pageSize) {
         //编写Sql语句，：pageIndex和:pageSize为需要被替换的参数
@@ -72,6 +76,7 @@ public class UserDaoImpl extends BaseDAOImpl<UserEntity> implements IUserDao {
         return userList;
     }
 
+    @Transactional
     @Override
     public UserEntity getUserById(long id) {
         //编写Sql语句，：id为需要被替换的参数
@@ -89,6 +94,7 @@ public class UserDaoImpl extends BaseDAOImpl<UserEntity> implements IUserDao {
         return user;
     }
 
+    @Transactional
     @Override
     public List<UserEntity> findUserByName(String name) {
         //编写Sql语句，：pageIndex和:pageSize为需要被替换的参数
@@ -107,6 +113,7 @@ public class UserDaoImpl extends BaseDAOImpl<UserEntity> implements IUserDao {
         return userList;
     }
 
+    @Transactional
     @Override
     public List<UserEntity> findUserBySex(int sex) {
         //编写Sql语句，：pageIndex和:pageSize为需要被替换的参数
@@ -124,6 +131,7 @@ public class UserDaoImpl extends BaseDAOImpl<UserEntity> implements IUserDao {
         return userList;
     }
 
+    @Transactional
     @Override
     public UserEntity login(String loginName, String pass) {
         //编写Sql语句，：id为需要被替换的参数
