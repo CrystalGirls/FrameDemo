@@ -18,7 +18,7 @@ import java.util.Map;
  * Copyright (c) 2020 ♀Crystal♀ ,Inc. All Rights Reserved.
  */
 @Service("userService")
-public class UserService implements IUserService {
+public class UserServiceImpl implements IUserService {
 
     /*常规的业务处理都是在Service层完成的，Service层从Dao层取出数据之后，经过一些算法加
         工然后将数据给到Controller层，再由Controller层将数据通过http协议传输出去供对外接口

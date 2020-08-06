@@ -15,7 +15,7 @@ import java.util.Map;
  * @version 1.0
  * Copyright (c) 2020 ♀Crystal♀ ,Inc. All Rights Reserved.
  */
-public class LoginService implements ILoginService {
+public class LoginServiceImpl implements ILoginService {
 
     /*这里使用的是自动注入，也可以使用@Resource进行制定名称注入，
         自动注入要求变量名称即userDao要和Dao层的名称完成一致，
