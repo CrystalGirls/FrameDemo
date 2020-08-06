@@ -4,6 +4,7 @@ import net.crystalos.framedemo.dao.entity.UserEntity;
 import net.crystalos.framedemo.dao.inter.IUserDao;
 import net.crystalos.framedemo.service.inter.ILoginService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import java.util.Map;
  * @version 1.0
  * Copyright (c) 2020 ♀Crystal♀ ,Inc. All Rights Reserved.
  */
+@Service("loginService")
 public class LoginServiceImpl implements ILoginService {
 
     /*这里使用的是自动注入，也可以使用@Resource进行制定名称注入，
