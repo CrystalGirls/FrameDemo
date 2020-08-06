@@ -20,4 +20,5 @@ public interface IUserDao extends IBaseDAO<UserEntity> {
     UserEntity getUserById(long id);
     List<UserEntity> findUserByName(String name);
     List<UserEntity> findUserBySex(int sex);
+    UserEntity login(String loginName, String pass);
 }

@@ -123,4 +123,22 @@ public class UserDaoImpl extends BaseDAOImpl<UserEntity> implements IUserDao {
         }
         return userList;
     }
+
+    @Override
+    public UserEntity login(String loginName, String pass) {
+        //编写Sql语句，：id为需要被替换的参数
+        String sql = "select id,login_name,pass,name,sex from user where login_name = :login_name and pass = :pass";
+        query = this.getSession().createSQLQuery(sql);
+        //将sql语句中pageIndex和pageSize参数替换成实际的数值
+        query.setParameter("login_name", loginName);
+        query.setParameter("pass", pass);
+        query.addEntity(UserEntity.class);
+        UserEntity user = null;
+        try {
+            user = (UserEntity) query.uniqueResult();//uniqueResult方法只获取一条数据
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
+        return user;
+    }
 }
