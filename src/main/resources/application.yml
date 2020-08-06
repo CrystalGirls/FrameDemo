@@ -11,8 +11,11 @@ spring:
     password: demo
   jpa:
     hibernate:
+      #ddl-auto参数为validate的时候会在系统启动的时候对数据库进行验证，验证本地实体类和数据库中表结构是否一致
       ddl-auto: validate
+      #ddl-auto参数为create的时候会在系统每次启动的时候以程序中实体类的结构先删除同名的表再创建。
       #ddl-auto: create
+      #show-sql参数用于设置是否在日志中显示sql语句，方便调试。
     show-sql: true
     properties:
       hibernate:
