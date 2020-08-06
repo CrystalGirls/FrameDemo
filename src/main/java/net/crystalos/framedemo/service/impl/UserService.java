@@ -3,11 +3,9 @@ package net.crystalos.framedemo.service.impl;
 import net.crystalos.framedemo.dao.entity.UserEntity;
 import net.crystalos.framedemo.dao.inter.IUserDao;
 import net.crystalos.framedemo.service.inter.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.swing.*;
 import java.util.List;
 import java.util.Map;
 
