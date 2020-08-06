@@ -24,7 +24,7 @@ public class LoginController {
     @Resource(name = "loginService")
     ILoginService loginService;
 
-    @RequestMapping(value = "/in",produces="application/json;charset=UTF-8")
+    @RequestMapping(value = "/in")
     public String login(@RequestBody Map<String, Object> map) {
         return JSONObject.toJSONString(loginService.login(map));
     }
