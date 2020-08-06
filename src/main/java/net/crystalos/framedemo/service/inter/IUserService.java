@@ -19,5 +19,4 @@ public interface IUserService {
     boolean deleteUser(Map<String, Object> map);
     List getUser(Map<String, Object> map);
     List findUser(Map<String, Object>map);
-    UserEntity login(Map<String, Object> map);
 }

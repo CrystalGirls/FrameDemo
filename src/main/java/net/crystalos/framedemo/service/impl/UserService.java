@@ -109,14 +109,4 @@ public class UserService implements IUserService {
             return userDao.getAll();
         }
     }
-
-    @Override
-    public UserEntity login(Map<String, Object> map) {
-        String loginName = map.get("loginname").toString();
-        String pass = map.get("pass").toString();
-        /*获取出密码明文之后，可以在这里对密码进行加密形成密文
-            本用例暂时不对密码进行加密
-         */
-        return userDao.login(loginName, pass);
-    }
 }
