@@ -1,0 +1,61 @@
+Springboot配置文件有以下两种格式：
+
+application.properties
+application.yml
+Springboot使用一个全局配置文件，并且格式是固定的：
+
+application.properties
+application.yml
+Springboot配置文件作用主要用于方便修改springboot自动配置的默认值。
+
+Springboot配置文件存放目录
+
+springboot官方是这样解释的：
+
+SpringApplication loads properties from application.properties files in the following locations and adds them to the Spring Environment:
+A /config subdirectory of the current directory
+The current directory
+A classpath /config package
+The classpath root
+The list is ordered by precedence (properties defined in locations higher in the list override those defined in lower locations).
+
+解释为：
+
+SpringApplication将从以下位置加载application.properties文件，并把它们添加到Spring Environment中：1. 当前目录下的一个/config子目录2. 当前目录3. 一个classpath下的/config包4. classpath根路径（root）这个列表是按优先级排序的（列表中位置高的将覆盖位置低的）。
+
+Springboot配置文件加载顺序
+
+Springboot启动会扫描以下位置的application.properties/application.yml文件作为Springboot的默认配置文件：
+
+–file:./config/
+–file:./
+–classpath:/config/
+–classpath:/
+优先级由高到低，高优先级的配置会覆盖低优先级的配置；Springboot会从这四个位置全部加载主配置文件，互补配置；
+
+项目打包好后，还可以使用spring.config.location来改变默认的配置文件位置，指定配置文件和默认加载配置文件共同起作用形成互补配置：
+java -jar spring-boot-config-SNAPSHOT.jar --spring.config.location=E:/application.properties
+
+
+【注意】：
+
+如果在同一个目录下同时yml和properties配置文件，默认先读properties；
+如果同一个配置属性，在多个配置文件都配置了，默认使用第一个读取到的，后面读取的不会覆盖前面读取到的；
+创建spring boot项目时，一般的配置文件放在项目的resources目录下。
+外部配置加载顺序
+
+Springboot也可以从以下位置加载配置，优先级从高到低，高优先级的配置覆盖低优先级的配置，所有的配置会形成互补配置：
+
+命令行参数
+java -jar spring-boot-config -SNAPSHOT.jar --server.port=8888 --server.context-path=/assuse多个配置用空格分开，例如： --配置项1=值 –配置项2=值2
+
+来自java:comp/env的JNDI属性
+Java系统属性（System.getProperties()）
+操作系统环境变量
+RandomValuePropertySource配置的random.*属性值
+由jar包外向jar包内进行寻找，优先加载带profile，再来加载不带profile
+jar包外部的application-{profile}.properties/application.yml(带spring.profile)配置文件；jar包内部的application-{profile}.properties/application.yml(带spring.profile)配置文件；jar包外部的application.properties/application.yml(不带spring.profile)配置文件；jar包内部的application.properties/application.yml(不带spring.profile)配置文件;
+
+@Configuration注解类上的@PropertySource
+通过SpringApplication.setDefaultProperties指定的默认属性
+所有支持的配置加载来源。
