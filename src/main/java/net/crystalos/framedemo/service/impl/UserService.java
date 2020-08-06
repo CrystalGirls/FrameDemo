@@ -20,6 +20,11 @@ import java.util.Map;
 @Service("userService")
 public class UserService implements IUserService {
 
+    /*常规的业务处理都是在Service层完成的，Service层从Dao层取出数据之后，经过一些算法加
+        工然后将数据给到Controller层，再由Controller层将数据通过http协议传输出去供对外接口
+        或者是页面使用。
+     */
+
     /*这里使用的是指定名称注入，也可以使用@Autowired进行自动注入，
         自动注入要求变量名称即userDao要和Dao层的名称完成一致，例如：
         @Autowired
