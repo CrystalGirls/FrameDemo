@@ -64,6 +64,14 @@ public class UserServiceImpl implements IUserService {
         if(map.get("sex") != null) {
             user.setSex(Integer.parseInt(map.get("sex").toString()));
         }
+        /* 一般逻辑删除在Controller层是remove或者delete方法，但是实际调用的是update方法，只是将专门用于标记数据
+        可用和不可用的标记位进行改变。
+        例如：我个人习惯在每张表中添加is_using字段这里就进行如下操作：
+        if(map.get("is_using) != null) {
+            user.setSex(Integer.parseInt(map.get("is_using").toString()));
+        }
+        只需要在Controller层将Map中字段的值改一下即可完成逻辑删除
+         */
         /*这里我们可以直接调用框架的update方法进行更新，在调用此方法的时候，需要先根据主键查询出实体类的全部数据，
             然后变更新的数据，之后框架会自动完成更新，在不使用主键作为条件进行更新的时候，需要我们在Dao层手动编写Sql
             语句进行更新。
