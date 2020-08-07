@@ -4,6 +4,7 @@ import net.crystalos.framedemo.dao.entity.UserEntity;
 import net.crystalos.framedemo.dao.inter.IUserDao;
 import net.crystalos.framedemo.service.inter.IUserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -71,6 +72,10 @@ public class UserServiceImpl implements IUserService {
         return true;
     }
 
+    /*删除需要整个过程是同一个事物，所以如果采用实体类删除，那么就需要在Service层添加事物处理
+        不过以我个人习惯，事物类型尽量在Dao层处理，因此会使用下面手动写Sql的方式删除
+     */
+    @Transactional
     @Override
     public boolean deleteUser(Map<String, Object> map) {
         /*这里删除方法试用Map做为入参，是因为删除还可以以其他参数做为条件，未必一定要ID，只是我们这里用Id举例*/

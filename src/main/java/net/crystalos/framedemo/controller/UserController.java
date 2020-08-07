@@ -44,11 +44,20 @@ public class UserController {
 
     @RequestMapping(value = "/delete")
     public String deleteUser(@RequestBody Map<String, Object> map) {
+        //以下为直接调用自己写的Sql删除
+        long id = Long.parseLong(map.get("id").toString());
+        if(userService.deleteUser(id)) {
+            return "success";
+        } else {
+            return "fail";
+        }
+        /*一下为调用实体类删除的形式
         if(userService.deleteUser(map)) {
             return "success";
         } else {
             return "fail";
         }
+         */
     }
 
     @RequestMapping(value = "/repass")
