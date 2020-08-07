@@ -82,7 +82,7 @@ public class UserDaoImpl extends BaseDAOImpl<UserEntity> implements IUserDao {
         //编写Sql语句，：id为需要被替换的参数
         String sql = "select id,login_name,pass,name,sex from user where id = :id";
         query = this.getSession().createSQLQuery(sql);
-        //将sql语句中pageIndex和pageSize参数替换成实际的数值
+        //将sql语句中id参数替换成实际的数值
         query.setParameter("id", id);
         query.addEntity(UserEntity.class);
         UserEntity user = null;
@@ -97,10 +97,10 @@ public class UserDaoImpl extends BaseDAOImpl<UserEntity> implements IUserDao {
     @Transactional
     @Override
     public List<UserEntity> findUserByName(String name) {
-        //编写Sql语句，：pageIndex和:pageSize为需要被替换的参数
+        //编写Sql语句，：name为需要被替换的参数
         String sql = "select id,login_name,pass,name,sex from user where name like :name";
         query = this.getSession().createSQLQuery(sql);
-        //将sql语句中pageIndex和pageSize参数替换成实际的数值
+        //将sql语句中name参数替换成实际的数值
         //模糊查询的时候，参数两头带入%符号
         query.setParameter("name", "%"+name+"%");
         query.addEntity(UserEntity.class);
@@ -116,10 +116,10 @@ public class UserDaoImpl extends BaseDAOImpl<UserEntity> implements IUserDao {
     @Transactional
     @Override
     public List<UserEntity> findUserBySex(int sex) {
-        //编写Sql语句，：pageIndex和:pageSize为需要被替换的参数
+        //编写Sql语句，：sex为需要被替换的参数
         String sql = "select id,login_name,pass,name,sex from user where sex = :sex";
         query = this.getSession().createSQLQuery(sql);
-        //将sql语句中pageIndex和pageSize参数替换成实际的数值
+        //将sql语句中sex参数替换成实际的数值
         query.setParameter("sex", sex);
         query.addEntity(UserEntity.class);
         List<UserEntity> userList = null;
@@ -134,10 +134,10 @@ public class UserDaoImpl extends BaseDAOImpl<UserEntity> implements IUserDao {
     @Transactional
     @Override
     public UserEntity login(String loginName, String pass) {
-        //编写Sql语句，：id为需要被替换的参数
+        //编写Sql语句，：login_name和:pass为需要被替换的参数
         String sql = "select id,login_name,pass,name,sex from user where login_name = :login_name and pass = :pass";
         query = this.getSession().createSQLQuery(sql);
-        //将sql语句中pageIndex和pageSize参数替换成实际的数值
+        //将sql语句中login_name和和pass参数替换成实际的数值
         query.setParameter("login_name", loginName);
         query.setParameter("pass", pass);
         query.addEntity(UserEntity.class);
@@ -148,5 +148,30 @@ public class UserDaoImpl extends BaseDAOImpl<UserEntity> implements IUserDao {
             logger.error(e.getMessage());
         }
         return user;
+    }
+
+    @Transactional
+    @Override
+    public boolean rePass(long id, String pass) {
+        //编写Sql语句，:pass和：id为需要被替换的参数
+        String sql = "update user set pass = :pass where id = :id";
+        query = this.getSession().createSQLQuery(sql);
+        //将sql语句中pass和id参数替换成实际的数值
+        query.setParameter("pass", pass);
+        query.setParameter("id", id);
+        int count = query.executeUpdate();
+        return count > 0;
+    }
+
+    @Transactional
+    @Override
+    public boolean deleteById(long id) {
+        //编写Sql语句，：id为需要被替换的参数
+        String sql = "delete from user where id = :id";
+        query = this.getSession().createSQLQuery(sql);
+        //将sql语句中id参数替换成实际的数值
+        query.setParameter("id", id);
+        int count = query.executeUpdate();
+        return count > 0;
     }
 }

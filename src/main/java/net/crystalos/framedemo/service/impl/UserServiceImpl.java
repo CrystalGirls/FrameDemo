@@ -73,6 +73,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public boolean deleteUser(Map<String, Object> map) {
+        /*这里删除方法试用Map做为入参，是因为删除还可以以其他参数做为条件，未必一定要ID，只是我们这里用Id举例*/
         long id = Long.parseLong(map.get("id").toString());
         UserEntity user = userDao.getUserById(id);
         /*这里我么可以通过查询出实体类然后用框架的删除方法，也可以直接在Dao层写删除语句，然后带入相关的参数进行
@@ -108,5 +109,35 @@ public class UserServiceImpl implements IUserService {
         } else {
             return userDao.getAll();
         }
+    }
+
+    @Override
+    public boolean rePass(Map<String, Object> map) {
+        long id = Long.parseLong(map.get("id").toString());
+        String loginName = map.get("loginname").toString();
+        String oldPass = (map.get("oldpass").toString());
+        String newPass = (map.get("newpass").toString());
+        String newRePass = (map.get("newrepass").toString());
+        if(!newPass.equals(newRePass)) {
+            //判断两遍新密码是否相同，不同则直接失败；
+            return false;
+        }
+        //修改其他用户密码一般带入的就是用户的ID和新的密码，因此在这一步直接直接就可以通过以下注释掉的部分修改
+
+        //return userDao.rePass(id, newPass);
+
+        //直接通过登录名和旧密码查询出用户，用于验证用户是否正确，这个通常是修改自己的密码。
+        UserEntity user = userDao.login(loginName, oldPass);
+        if(user != null) {
+            //当查询出来用户不为空的时候执行修改，否则认为登录名或者原密码错误
+            return userDao.rePass(user.getId(), newPass);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteUser(long id) {
+        return userDao.deleteById(id);
     }
 }
