@@ -113,24 +113,36 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public boolean rePass(Map<String, Object> map) {
-        long id = Long.parseLong(map.get("id").toString());
-        String loginName = map.get("loginname").toString();
-        String oldPass = (map.get("oldpass").toString());
+        long id = 0;
+        String loginName = null;
+        String oldPass = null;
         String newPass = (map.get("newpass").toString());
-        String newRePass = (map.get("newrepass").toString());
-        if(!newPass.equals(newRePass)) {
+        String reNewPass = (map.get("renewpass").toString());
+        if(map.get("id") != null) {
+            id = Long.parseLong(map.get("id").toString());
+        }
+        if(map.get("loginname") != null) {
+            loginName = map.get("loginname").toString();
+        }
+        if(map.get("oldpass") != null) {
+            oldPass = (map.get("oldpass").toString());
+        }
+        if(!newPass.equals(reNewPass)) {
             //判断两遍新密码是否相同，不同则直接失败；
             return false;
         }
-        //修改其他用户密码一般带入的就是用户的ID和新的密码，因此在这一步直接直接就可以通过以下注释掉的部分修改
-
-        //return userDao.rePass(id, newPass);
-
-        //直接通过登录名和旧密码查询出用户，用于验证用户是否正确，这个通常是修改自己的密码。
-        UserEntity user = userDao.login(loginName, oldPass);
-        if(user != null) {
-            //当查询出来用户不为空的时候执行修改，否则认为登录名或者原密码错误
-            return userDao.rePass(user.getId(), newPass);
+        //判断是否有id，如果有，表示这次修改是管理员修改其他用户密码，直接进行修改
+        if(id > 0) {
+            return userDao.rePass(id, newPass);
+        } else if(loginName != null && oldPass != null) {
+            //修改自己的密码通过用户名和原密码验证
+            UserEntity user = userDao.login(loginName, oldPass);
+            if (user != null) {
+                //当查询出来用户不为空的时候执行修改，否则认为登录名或者原密码错误
+                return userDao.rePass(user.getId(), newPass);
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
