@@ -1,4 +1,4 @@
-package net.crystalos.framedemo.common.impl;
+package net.crystalos.framedemo.common.test.dao;
 
 import net.crystalos.framedemo.common.inter.IBaseDAO;
 import org.hibernate.Session;
@@ -9,8 +9,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -25,7 +23,7 @@ import java.util.List;
  * @version 1.0
  * Copyright (c) 2020 ♀Crystal♀ ,Inc. All Rights Reserved.
  */
-@Repository("baseDao")
+@Repository("otherBaseDao")
 public class BaseDAOImpl<T> extends HibernateDaoSupport implements IBaseDAO<T> {
     @SuppressWarnings("unused")
     private Class<T> entityClass; // 表示当前实体类的类型
@@ -36,7 +34,7 @@ public class BaseDAOImpl<T> extends HibernateDaoSupport implements IBaseDAO<T> {
     //@PersistenceContext
     //private EntityManager entityManager;
 
-    @Resource(name="PrimarySessionFactory")
+    @Resource(name="SecondarySessionFactory")
     public void setSessionFacotry(SessionFactory sessionFacotry) {
         super.setSessionFactory(sessionFacotry);
     }
