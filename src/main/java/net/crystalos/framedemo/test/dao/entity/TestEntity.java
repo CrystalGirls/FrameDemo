@@ -1,4 +1,4 @@
-package net.crystalos.framedemo.common.test.dao.entity;
+package net.crystalos.framedemo.test.dao.entity;
 
 import javax.persistence.*;
 

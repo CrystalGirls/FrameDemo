@@ -1,4 +1,4 @@
-package net.crystalos.framedemo.common.test.dao;
+package net.crystalos.framedemo.test.dao;
 
 import net.crystalos.framedemo.common.inter.IBaseDAO;
 import org.hibernate.Session;
