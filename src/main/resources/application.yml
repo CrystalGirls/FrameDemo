@@ -3,25 +3,10 @@ server:
 spring:
   application:
     name: DemoSystem #服务名称--调用的时候根据名称来调用该服务的方法
+  profiles:
+    active: primary,secondary #需要额外载入的配置文件，配置文件必须application-xxx格式
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-#单数据库配置
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://192.168.5.30:3306/demo?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT
-#    username: demo
-#    password: demo
-#多数据库配置
-#第一个数据库
-    primary:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      jdbc-url:  jdbc:mysql://127.0.0.1:3306/demo?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT
-      username: demo
-      password: demo
-    secondary:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      jdbc-url:  jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT
-      username: test
-      password: test
   jpa:
     hibernate:
       #ddl-auto参数为validate的时候会在系统启动的时候对数据库进行验证，验证本地实体类和数据库中表结构是否一致
@@ -32,6 +17,7 @@ spring:
     show-sql: true
     properties:
       hibernate:
+        current_session_context_class: thread
         dialect: org.hibernate.dialect.MySQL8Dialect
         format-sql: true
         generate_statistics: true
