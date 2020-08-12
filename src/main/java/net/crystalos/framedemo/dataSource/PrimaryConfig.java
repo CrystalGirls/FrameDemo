@@ -61,7 +61,6 @@ public class PrimaryConfig {
         return jpaProperties.getHibernateProperties(hibernateSettings);
     }
 */
-    
     @Bean(name = "transactionManagerPrimary")
     public PlatformTransactionManager transactionManagerPrimary(EntityManagerFactoryBuilder builder) {
         return new JpaTransactionManager(entityManagerFactoryPrimary(builder).getObject());

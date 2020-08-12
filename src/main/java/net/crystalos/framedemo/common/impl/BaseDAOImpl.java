@@ -6,11 +6,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -43,6 +40,7 @@ public class BaseDAOImpl<T> extends HibernateDaoSupport implements IBaseDAO<T> {
 
     protected StringBuffer sqlStr;
     protected NativeQuery query;
+    protected Session session;
     protected final static int TRUE = 1;
     protected final static int FALSE = 0;
 
@@ -65,172 +63,234 @@ public class BaseDAOImpl<T> extends HibernateDaoSupport implements IBaseDAO<T> {
         //return entityManager.unwrap(Session.class);
     }
 
-    @Transactional
     @Override
     public void save(T t)
     {
-        //this.getSession().beginTransaction();
-        this.getSession().save(t);
-        //this.getSession().flush();
-        //this.getSession().close();
-        //this.getSession().getTransaction().commit();
-
+        session = this.getSession();
+        session.beginTransaction();
+        session.save(t);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
     }
 
-    @Transactional
     @Override
     public void save(T[] t)
     {
-        //this.getSession().beginTransaction();
+        session = this.getSession();
+        session.beginTransaction();
         for (T temp : t)
         {
-            this.getSession().save(temp);
+            session.save(temp);
         }
-        //this.getSession().flush();
-        //this.getSession().getTransaction().commit();
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
     }
 
-    @Transactional
     @Override
     public void save(List<T> t)
     {
-        //this.getSession().beginTransaction();
+        session = this.getSession();
+        session.beginTransaction();
         for (T temp : t)
         {
-            this.getSession().save(temp);
+            session.save(temp);
         }
-        //this.getSession().flush();
-        //this.getSession().close();
-        //this.getSession().getTransaction().commit();
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
     }
 
-    @Transactional
     @Override
     public List<Object> saveObj(T[] t)
     {
         return this.save(getSession(), t);
     }
 
-    @Transactional
     @Override
     public Object saveObj(T t)
     {
         return this.save(getSession(), t);
     }
 
-    @Transactional
     @Override
     public List<Object> save(Session session, T[] t)
     {
-        //this.getSession().beginTransaction();
+        session.beginTransaction();
         List<Object> list = new ArrayList<>();
         for (T temp : t)
         {
             Object object = session.save(temp);
             list.add(object);
         }
-        //getSession().flush();
-        //getSession().close();
-        //this.getSession().getTransaction().commit();
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
         return list;
     }
 
-    @Transactional
     @Override
     public Object save(Session session, T t)
     {
-        //this.getSession().beginTransaction();
+        session.beginTransaction();
         Object object = session.save(t);
-        //getSession().flush();
-        //getSession().close();
-        //this.getSession().getTransaction().commit();
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
         return object;
     }
 
-    @Transactional
     @Override
     public void update(T[] t) {
-        this.getSession().update(t);
+        session = this.getSession();
+        session.beginTransaction();
+        for(T temp : t) {
+            session.update(temp);
+        }
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
     }
 
-    @Transactional
     @Override
     public void update(List<T> t) {
-        this.getSession().update(t);
+        session = this.getSession();
+        session.beginTransaction();
+        for(T temp : t) {
+            session.update(temp);
+        }
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
     }
 
-    @Transactional
     @Override
     public void update(T t) {
-        this.getSession().update(t);
+        session = this.getSession();
+        session.beginTransaction();
+        session.update(t);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
     }
 
-    @Transactional
     @Override
     public void updateObj(T[] t) {
-        this.getSession().update(t);
+        session = this.getSession();
+        session.beginTransaction();
+        for(T temp : t) {
+            session.update(temp);
+        }
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
     }
 
-    @Transactional
     @Override
     public void updateObj(T t) {
-        this.getSession().update(t);
+        session = this.getSession();
+        session.beginTransaction();
+        session.update(t);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
     }
 
-    @Transactional
     @Override
     public void update(Session session, T[] t) {
+        session.beginTransaction();
         for (T temp : t)
         {
             session.update(temp);
         }
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
     }
 
-    @Transactional
     @Override
     public void update(Session session, T t) {
+        session.beginTransaction();
         session.update(t);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
     }
 
-    @Transactional
     @Override
     public void delete(T[] t) {
-        getSession().delete(t);
+        session = this.getSession();
+        session.beginTransaction();
+        for(T temp : t) {
+            session.delete(temp);
+        }
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
     }
 
-    @Transactional
     @Override
     public void delete(List<T> t) {
-        getSession().delete(t);
+        session = this.getSession();
+        session.beginTransaction();
+        for(T temp : t) {
+            session.delete(temp);
+        }
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
     }
 
-    @Transactional
     @Override
     public void delete(T t) {
-        getSession().delete(t);
+        session = this.getSession();
+        session.beginTransaction();
+        session.delete(t);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
     }
 
-    @Transactional
     @Override
     public void deleteObj(T[] t) {
-        getSession().delete(t);
+        session = this.getSession();
+        session.beginTransaction();
+        for(T temp : t) {
+            session.delete(temp);
+        }
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
     }
 
-    @Transactional
     @Override
     public void deleteObj(T t) {
-        getSession().delete(t);
+        session = this.getSession();
+        session.beginTransaction();
+        session.delete(t);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
     }
 
-    @Transactional
     @Override
     public void delete(Session session, T[] t) {
-        session.delete(t);
+        session.beginTransaction();
+        for(T temp : t) {
+            session.delete(temp);
+        }
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
     }
 
-    @Transactional
     @Override
     public void delete(Session session, T t) {
+        session.beginTransaction();
         session.delete(t);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
     }
 }
