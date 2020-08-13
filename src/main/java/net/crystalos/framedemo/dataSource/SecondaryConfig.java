@@ -2,6 +2,7 @@ package net.crystalos.framedemo.dataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateSettings;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManager;
 import javax.sql.DataSource;
+import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
@@ -27,11 +29,15 @@ import java.util.Map;
         basePackages= { "net.crystalos.framedemo.repository.secondary" }) //设置Repository所在位置
 public class SecondaryConfig {
 
-    @Autowired
+    @Autowired(required=false)
     private JpaProperties jpaProperties;
 
     @Autowired
     private HibernateProperties hibernateProperties;
+
+    @Value("${datasource.secondary.dialect}")
+    private String dialect;
+
 
     @Autowired @Qualifier("secondaryDataSource")
     private DataSource secondaryDataSource;
@@ -45,23 +51,23 @@ public class SecondaryConfig {
     @Primary
     @Bean(name = "entityManagerFactorySecondary")
     public LocalContainerEntityManagerFactoryBean entityManagerFactorySecondary (EntityManagerFactoryBuilder builder) {
-        Map<String, Object> properties = hibernateProperties.determineHibernateProperties(
-                jpaProperties.getProperties(), new HibernateSettings());
+//        Map<String, Object> properties = hibernateProperties.determineHibernateProperties(
+//                jpaProperties.getProperties(), new HibernateSettings());
         return builder
                 .dataSource(secondaryDataSource)
-                //.properties(getVendorProperties())
-                .properties(properties)
+                .properties(getVendorProperties())
+                //.properties(properties)
                 .packages("net.crystalos.framedemo.test.dao.entity") //设置实体类所在位置
                 .persistenceUnit("secondaryPersistenceUnit")
                 .build();
     }
 
-/*
     private Map<String, Object> getVendorProperties() {
-    	HibernateSettings hibernateSettings = new HibernateSettings();
-        return jpaProperties.getHibernateProperties(hibernateSettings);
+        Map<String, String> map = new HashMap<>();
+        map.put("hibernate.dialect", dialect);// 设置对应的数据库方言
+        jpaProperties.setProperties(map);
+        return hibernateProperties.determineHibernateProperties(jpaProperties.getProperties(), new HibernateSettings());
     }
-*/
     
     @Primary
     @Bean(name = "transactionManagerSecondary")

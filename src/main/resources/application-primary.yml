@@ -1,6 +1,7 @@
 datasource:
   primary:
     driver-class-name: com.mysql.cj.jdbc.Driver
+    dialect: org.hibernate.dialect.MySQL8Dialect
     jdbc-url:  jdbc:mysql://127.0.0.1:3306/demo?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT
     username: demo
     password: demo
