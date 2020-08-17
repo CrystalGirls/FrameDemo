@@ -69,7 +69,7 @@ public class BaseDAOImpl<T> extends HibernateDaoSupport implements IBaseDAO<T> {
         session = this.getSession();
         session.beginTransaction();
         session.save(t);
-        session.flush();
+        //session.flush();
         session.getTransaction().commit();
         session.close();
     }
@@ -83,7 +83,7 @@ public class BaseDAOImpl<T> extends HibernateDaoSupport implements IBaseDAO<T> {
         {
             session.save(temp);
         }
-        session.flush();
+        //session.flush();
         session.getTransaction().commit();
         session.close();
     }
@@ -97,7 +97,7 @@ public class BaseDAOImpl<T> extends HibernateDaoSupport implements IBaseDAO<T> {
         {
             session.save(temp);
         }
-        session.flush();
+        //session.flush();
         session.getTransaction().commit();
         session.close();
     }
@@ -124,7 +124,7 @@ public class BaseDAOImpl<T> extends HibernateDaoSupport implements IBaseDAO<T> {
             Object object = session.save(temp);
             list.add(object);
         }
-        session.flush();
+        //session.flush();
         session.getTransaction().commit();
         session.close();
         return list;
@@ -135,7 +135,7 @@ public class BaseDAOImpl<T> extends HibernateDaoSupport implements IBaseDAO<T> {
     {
         session.beginTransaction();
         Object object = session.save(t);
-        session.flush();
+        //session.flush();
         session.getTransaction().commit();
         session.close();
         return object;
@@ -148,7 +148,7 @@ public class BaseDAOImpl<T> extends HibernateDaoSupport implements IBaseDAO<T> {
         for(T temp : t) {
             session.update(temp);
         }
-        session.flush();
+        //session.flush();
         session.getTransaction().commit();
         session.close();
     }
@@ -160,7 +160,7 @@ public class BaseDAOImpl<T> extends HibernateDaoSupport implements IBaseDAO<T> {
         for(T temp : t) {
             session.update(temp);
         }
-        session.flush();
+        //session.flush();
         session.getTransaction().commit();
         session.close();
     }
@@ -170,7 +170,7 @@ public class BaseDAOImpl<T> extends HibernateDaoSupport implements IBaseDAO<T> {
         session = this.getSession();
         session.beginTransaction();
         session.update(t);
-        session.flush();
+        //session.flush();
         session.getTransaction().commit();
         session.close();
     }
@@ -182,7 +182,7 @@ public class BaseDAOImpl<T> extends HibernateDaoSupport implements IBaseDAO<T> {
         for(T temp : t) {
             session.update(temp);
         }
-        session.flush();
+        //session.flush();
         session.getTransaction().commit();
         session.close();
     }
@@ -192,7 +192,7 @@ public class BaseDAOImpl<T> extends HibernateDaoSupport implements IBaseDAO<T> {
         session = this.getSession();
         session.beginTransaction();
         session.update(t);
-        session.flush();
+        //session.flush();
         session.getTransaction().commit();
         session.close();
     }
@@ -204,7 +204,7 @@ public class BaseDAOImpl<T> extends HibernateDaoSupport implements IBaseDAO<T> {
         {
             session.update(temp);
         }
-        session.flush();
+        //session.flush();
         session.getTransaction().commit();
         session.close();
     }
@@ -213,7 +213,7 @@ public class BaseDAOImpl<T> extends HibernateDaoSupport implements IBaseDAO<T> {
     public void update(Session session, T t) {
         session.beginTransaction();
         session.update(t);
-        session.flush();
+        //session.flush();
         session.getTransaction().commit();
         session.close();
     }
@@ -225,7 +225,7 @@ public class BaseDAOImpl<T> extends HibernateDaoSupport implements IBaseDAO<T> {
         for(T temp : t) {
             session.delete(temp);
         }
-        session.flush();
+        //session.flush();
         session.getTransaction().commit();
         session.close();
     }
@@ -237,7 +237,7 @@ public class BaseDAOImpl<T> extends HibernateDaoSupport implements IBaseDAO<T> {
         for(T temp : t) {
             session.delete(temp);
         }
-        session.flush();
+        //session.flush();
         session.getTransaction().commit();
         session.close();
     }
@@ -247,7 +247,7 @@ public class BaseDAOImpl<T> extends HibernateDaoSupport implements IBaseDAO<T> {
         session = this.getSession();
         session.beginTransaction();
         session.delete(t);
-        session.flush();
+        //session.flush();
         session.getTransaction().commit();
         session.close();
     }
@@ -259,7 +259,7 @@ public class BaseDAOImpl<T> extends HibernateDaoSupport implements IBaseDAO<T> {
         for(T temp : t) {
             session.delete(temp);
         }
-        session.flush();
+        //session.flush();
         session.getTransaction().commit();
         session.close();
     }
@@ -269,7 +269,7 @@ public class BaseDAOImpl<T> extends HibernateDaoSupport implements IBaseDAO<T> {
         session = this.getSession();
         session.beginTransaction();
         session.delete(t);
-        session.flush();
+        //session.flush();
         session.getTransaction().commit();
         session.close();
     }
@@ -280,7 +280,7 @@ public class BaseDAOImpl<T> extends HibernateDaoSupport implements IBaseDAO<T> {
         for(T temp : t) {
             session.delete(temp);
         }
-        session.flush();
+        //session.flush();
         session.getTransaction().commit();
         session.close();
     }
@@ -289,7 +289,7 @@ public class BaseDAOImpl<T> extends HibernateDaoSupport implements IBaseDAO<T> {
     public void delete(Session session, T t) {
         session.beginTransaction();
         session.delete(t);
-        session.flush();
+        //session.flush();
         session.getTransaction().commit();
         session.close();
     }

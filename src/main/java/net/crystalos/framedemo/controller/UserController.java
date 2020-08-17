@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,11 +44,23 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/deleteList")
+    public String deleteUser(@RequestBody List<Map<String, Object>> mapList) {
+       List<Long> ids = new ArrayList<>();
+        for (Map<String, Object> map : mapList) {
+            ids.add(Long.parseLong(map.get("id").toString()));
+        }
+        if (userService.deleteUser(ids)) {
+            return "success";
+        } else {
+            return "fail";
+        }
+    }
     @RequestMapping(value = "/delete")
     public String deleteUser(@RequestBody Map<String, Object> map) {
         //以下为直接调用自己写的Sql删除
         long id = Long.parseLong(map.get("id").toString());
-        if(userService.deleteUser(id)) {
+        if (userService.deleteUser(id)) {
             return "success";
         } else {
             return "fail";

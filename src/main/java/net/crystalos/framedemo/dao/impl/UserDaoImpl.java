@@ -189,7 +189,7 @@ public class UserDaoImpl extends BaseDAOImpl<UserEntity> implements IUserDao {
         query.setParameter("pass", pass);
         query.setParameter("id", id);
         int count = query.executeUpdate();
-        session.flush();
+        //session.flush();
         session.getTransaction().commit();
         session.close();
         return count > 0;
@@ -206,7 +206,28 @@ public class UserDaoImpl extends BaseDAOImpl<UserEntity> implements IUserDao {
         //将sql语句中id参数替换成实际的数值
         query.setParameter("id", id);
         int count = query.executeUpdate();
-        session.flush();
+        //session.flush();
+        session.getTransaction().commit();
+        session.close();
+        return count > 0;
+    }
+
+    @Override
+    public boolean deleteById(List<Long> ids) {
+        int count = 0;
+        session = getSession();
+        //编写Sql语句，：id为需要被替换的参数
+        String sql = "delete from user where id = :id";
+        //开启事物处理
+        session.beginTransaction();
+        for(long id : ids) {
+            query = this.getSession().createSQLQuery(sql);
+            //将sql语句中id参数替换成实际的数值
+            query.setParameter("id", id);
+            count += query.executeUpdate();
+            //session.flush();
+        }
+        //session.flush();
         session.getTransaction().commit();
         session.close();
         return count > 0;

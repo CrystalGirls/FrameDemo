@@ -165,4 +165,9 @@ public class UserServiceImpl implements IUserService {
     public boolean deleteUser(long id) {
         return userDao.deleteById(id);
     }
+
+    @Override
+    public boolean deleteUser(List<Long> ids) {
+        return userDao.deleteById(ids);
+    }
 }

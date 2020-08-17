@@ -21,4 +21,5 @@ public interface IUserService {
     List findUser(Map<String, Object>map);
     boolean rePass(Map<String, Object>map);
     boolean deleteUser(long id);
+    boolean deleteUser(List<Long> ids);
 }

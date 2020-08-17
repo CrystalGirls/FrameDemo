@@ -23,4 +23,5 @@ public interface IUserDao extends IBaseDAO<UserEntity> {
     UserEntity login(String loginName, String pass);
     boolean rePass(long id, String pass);
     boolean deleteById(long id);
+    boolean deleteById(List<Long> ids);
 }
