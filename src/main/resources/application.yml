@@ -6,7 +6,9 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/demo?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=GMT
+    #这里最后serverTimezone时区，可以用Asia/Shanghai，表示亚洲上海，也可以用GMT%2B8，表示东八区(GMT+8)，
+    #数据库连接符中不能出现“+”号，因此“+”号使用“%2B”来表示
+    url: jdbc:mysql://127.0.0.1:3306/demo?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=Asia/Shanghai
     username: demo
     password: demo
   jpa:
